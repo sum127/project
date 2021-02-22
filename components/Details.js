@@ -32,7 +32,7 @@ import { LISTDATA } from '../share/list'
             <Card>
                 <Card.Title>{item.title}</Card.Title>
                 <Card.Image source={item.image}></Card.Image>
-                <Text style={{textAlign:'right', fontSize:20, marginTop:10}}> {act}</Text>
+                <Text style={{textAlign:'right', fontSize:20, marginTop:10}}></Text>
 
                 <View>
                     <View style={{flexDirection:'row', marginLeft:200}}>
@@ -64,11 +64,5 @@ import { LISTDATA } from '../share/list'
     );
   }
 
-  const act =() => {
-      return(
-        <Text>HI</Text>
-      )
-      
-  }
   
   export default list;
