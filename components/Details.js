@@ -1,18 +1,17 @@
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View} from 'react-native';
 import { Card, Button,Text } from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux'
 import { addTask, removeTask } from '../redux/actions/tasks'
-import { LISTDATA } from '../share/list'
-
+import api from '../api/list'
   const list = ({route}) => {
-
+    console.log("--detail");
+  console.log(route.params);  // navigate로 넘어온 매개변수
 
     const [count, setCount] = useState(0);
     const { id } = route.params;
-    const item = LISTDATA.filter(item => item.id == id)[0];
-
+    const [item, setItem] = useState({});
     const dispatch = useDispatch();
 
     const tasks = useSelector(state => state.tasks);
@@ -23,15 +22,23 @@ import { LISTDATA } from '../share/list'
     console.log("--isExistedTask--");
     console.log(isExistedTask);
 
+    const getDetails = useCallback(async () => {
+        const result = await api.get(id);
+        console.log(result.data);
+        setItem(result.data);
+      }, [])
+    
+      useEffect(()=>{
+        getDetails();
+      }, [])
 
-    console.log(item);
     return (
       
         
         <View >
             <Card>
                 <Card.Title>{item.title}</Card.Title>
-                <Card.Image source={item.image}></Card.Image>
+                <Card.Image source={{uri: item.image}}></Card.Image>
                 <Text style={{textAlign:'right', fontSize:20, marginTop:10}}></Text>
 
                 <View>
